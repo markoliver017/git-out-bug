@@ -1,7 +1,9 @@
+
 class GitCommand {
-    constructor(working_directory){
+    constructor(working_directory = require('./working-directory')){
         this.working_directory = working_directory;
     }
+
     //Command: git init 
     init(){
         this.staging = [];
@@ -10,10 +12,18 @@ class GitCommand {
     }
 
     //Command: git status
-    status(){        
-        /*
-            Create logic here and run unit testing.
-        */
+    status(){
+        const num_changes = this.staging.length;
+        if(num_changes > 0) {
+            let output = `You have ${num_changes} change/s.`;
+            for(let i=0; i<num_changes; i++) {
+                output += `\n${this.staging[i].location}/${this.staging[i].name}`;
+            }
+            return output;
+
+        } else {
+            return `You have ${num_changes} change/s.\n`;
+        }
     }
 
     //Command: git add <filename/file directory/wildcard> 
